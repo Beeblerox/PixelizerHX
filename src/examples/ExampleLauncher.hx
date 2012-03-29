@@ -11,6 +11,12 @@ import pixelizer.PxEngine;
 class ExampleLauncher extends Sprite 
 {
 	
+	#if flash
+	public static inline var Sound_Format:String = ".mp3";
+	#else
+	public static inline var Sound_Format:String = ".wav";
+	#end
+	
 	public function new() 
 	{
 		super();

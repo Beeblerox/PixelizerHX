@@ -1,7 +1,9 @@
 package examples.spritesheet;
 
 //import examples.assets.AssetFactory;
+#if (flash || cpp)
 import format.swf.MovieClip;
+#end
 import flash.display.StageQuality;
 import nme.Assets;
 import pixelizer.components.render.PxAnimationComponent;
@@ -34,6 +36,7 @@ class SpriteSheetExampleScene extends PxScene
 		
 		var i:Int;
 		
+		#if (flash || cpp)
 		var sheet:PxSpriteSheet = new PxSpriteSheet();
 		var numFrames:Int = sheet.addFramesFromMovieClip(cast(new Animation(), MovieClip), StageQuality.HIGH);
 		var frames:Array<Int> = [];
@@ -63,6 +66,10 @@ class SpriteSheetExampleScene extends PxScene
 		anim.gotoAndPlay("loop");
 		e.addComponent(anim);
 		addEntity(e);
+		#else
+		var sheet:PxSpriteSheet;
+		var e:PxEntity;
+		#end
 		
 		sheet = new PxSpriteSheet();
 		sheet.addFramesFromBitmapData(Assets.getBitmapData("assets/player.png"), 16, 16);

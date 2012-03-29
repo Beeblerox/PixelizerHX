@@ -1,7 +1,9 @@
 package pixelizer.render;
 
 import nme.display.BitmapData;
+#if (flash || cpp)
 import format.swf.MovieClip;
+#end
 import nme.display.StageQuality;
 import nme.geom.Matrix;
 import nme.geom.Point;
@@ -101,6 +103,7 @@ class PxSpriteSheet
 	 * @param pQuality	Quality to use while rendering frames.
 	 * @return Number of frames added.
 	 */
+	#if (flash || cpp)
 	public function addFramesFromMovieClip(pMC:MovieClip, ?pQuality:StageQuality = null/*StageQuality.LOW*/):Int 
 	{
 		var currentQuality:StageQuality = Pixelizer.stage.quality;
@@ -133,6 +136,7 @@ class PxSpriteSheet
 		
 		return pMC.totalFrames;
 	}
+	#end
 	
 	/**
 	 * Clears all resources used.

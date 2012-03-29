@@ -1,6 +1,7 @@
 package examples.platformer;
 
 //import examples.assets.AssetFactory;
+import examples.ExampleLauncher;
 import flash.geom.Point;
 import nme.Assets;
 import pixelizer.components.render.PxTextFieldComponent;
@@ -79,7 +80,7 @@ class PlatformerScene extends PxScene
 		}
 		
 		// play music
-		addEntity(new PxSoundEntity(Assets.getSound("assets/music_loop.mp3"), null, true));
+		addEntity(new PxSoundEntity(Assets.getSound("assets/music_loop" + ExampleLauncher.Sound_Format), null, true));
 	}
 	
 	override public function dispose():Void 

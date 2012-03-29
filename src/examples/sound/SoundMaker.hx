@@ -1,6 +1,7 @@
 package examples.sound;
 
 //import examples.assets.AssetFactory;
+import examples.ExampleLauncher;
 import nme.Assets;
 import pixelizer.components.render.PxBlitRenderComponent;
 import pixelizer.Pixelizer;
@@ -21,7 +22,7 @@ class SoundMaker extends PxEntity
 		super(160, 120);
 		addComponent(new PxBlitRenderComponent(PxImageUtil.createRect(32, 32, Pixelizer.COLOR_BLUE)));
 		
-		addEntity(new VisibleSoundEntity(Assets.getSound("assets/bird_song.mp3"), Pixelizer.ZERO_POINT, true));
+		addEntity(new VisibleSoundEntity(Assets.getSound("assets/bird_song" + ExampleLauncher.Sound_Format), Pixelizer.ZERO_POINT, true));
 	}
 	
 	override public function update(pDT:Float):Void 

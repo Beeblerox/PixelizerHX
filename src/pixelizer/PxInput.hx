@@ -252,7 +252,7 @@ class PxInput
 	
 	private static function keyReleased(evt:KeyboardEvent):Void 
 	{
-		_keysDown[ evt.keyCode ] = -1;
+		_keysDown[evt.keyCode] = -1;
 	}
 	
 	public static inline var KEY_BACKSPACE:Int = 8;
@@ -286,7 +286,7 @@ class PxInput
 	public static inline var KEY_7:Int = 55;
 	public static inline var KEY_8:Int = 56;
 	public static inline var KEY_9:Int = 57;
-	
+	#if flash
 	public static inline var KEY_A:Int = 65;
 	public static inline var KEY_B:Int = 66;
 	public static inline var KEY_C:Int = 67;
@@ -322,5 +322,33 @@ class PxInput
 	public static inline var KEY_F6:Int = 117;
 	public static inline var KEY_F7:Int = 118;
 	public static inline var KEY_F8:Int = 119;
+	#else 
+	public static inline var KEY_A:Int = 97;
+	public static inline var KEY_B:Int = 98;
+	public static inline var KEY_C:Int = 99;
+	public static inline var KEY_D:Int = 100;
+	public static inline var KEY_E:Int = 101;
+	public static inline var KEY_F:Int = 102;
+	public static inline var KEY_G:Int = 103;
+	public static inline var KEY_H:Int = 104;
+	public static inline var KEY_I:Int = 105;
+	public static inline var KEY_J:Int = 106;
+	public static inline var KEY_K:Int = 107;
+	public static inline var KEY_L:Int = 108;
+	public static inline var KEY_M:Int = 109;
+	public static inline var KEY_N:Int = 110;
+	public static inline var KEY_O:Int = 111;
+	public static inline var KEY_P:Int = 112;
+	public static inline var KEY_Q:Int = 113;
+	public static inline var KEY_R:Int = 114;
+	public static inline var KEY_S:Int = 115;
+	public static inline var KEY_T:Int = 116;
+	public static inline var KEY_U:Int = 117;
+	public static inline var KEY_V:Int = 118;
+	public static inline var KEY_W:Int = 119;
+	public static inline var KEY_X:Int = 120;
+	public static inline var KEY_Y:Int = 121;
+	public static inline var KEY_Z:Int = 122;
+	#end
 
 }

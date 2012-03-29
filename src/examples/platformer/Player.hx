@@ -1,6 +1,7 @@
 package examples.platformer;
 
 //import examples.assets.AssetFactory;
+import examples.ExampleLauncher;
 import nme.Assets;
 import pixelizer.components.collision.PxBoxColliderComponent;
 import pixelizer.components.collision.PxGridColliderComponent;
@@ -78,7 +79,7 @@ class Player extends PxActorEntity
 				{
 					bodyComp.velocity.y -= 11;
 					animComp.gotoAndPlay("jump");
-					addEntity(new PxSoundEntity(Assets.getSound("assets/jump.mp3"), Pixelizer.ZERO_POINT));
+					addEntity(new PxSoundEntity(Assets.getSound("assets/jump" + ExampleLauncher.Sound_Format), Pixelizer.ZERO_POINT));
 				}
 			}
 			

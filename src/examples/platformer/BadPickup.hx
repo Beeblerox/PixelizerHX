@@ -1,6 +1,7 @@
 package examples.platformer;
 
 //import examples.assets.;
+import examples.ExampleLauncher;
 import nme.Assets;
 import pixelizer.components.collision.PxBoxColliderComponent;
 import pixelizer.components.PxBodyComponent;
@@ -80,7 +81,7 @@ class BadPickup extends PxActorEntity
 			parent.addEntity(p);
 		}
 		
-		PxSoundManager.play(Assets.getSound("assets/explosion.mp3"), transform.position);
+		PxSoundManager.play(Assets.getSound("assets/explosion" + ExampleLauncher.Sound_Format), transform.position);
 		destroyIn(0);
 	}
 

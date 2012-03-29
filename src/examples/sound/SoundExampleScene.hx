@@ -1,6 +1,7 @@
 package examples.sound;
 
 //import examples.assets.AssetFactory;
+import examples.ExampleLauncher;
 import flash.geom.Point;
 import nme.Assets;
 import pixelizer.components.render.PxBlitRenderComponent;
@@ -61,7 +62,7 @@ class SoundExampleScene extends PxScene
 	{
 		if (PxInput.mousePressed) 
 		{
-			addEntity(new VisibleSoundEntity(Assets.getSound("assets/sheep.mp3"), PxInput.mousePosition));
+			addEntity(new VisibleSoundEntity(Assets.getSound("assets/sheep" + ExampleLauncher.Sound_Format), PxInput.mousePosition));
 				// could also have been
 				// PxSoundManager.play(new _sheepSound(), PxInput.mousePosition);
 				// but then we wouldn't see it

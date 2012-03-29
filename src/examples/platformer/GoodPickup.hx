@@ -1,6 +1,7 @@
 package examples.platformer;
 
 //import examples.assets.AssetFactory;
+import examples.ExampleLauncher;
 import nme.geom.Point;
 import nme.Assets;
 import pixelizer.components.collision.PxBoxColliderComponent;
@@ -58,7 +59,7 @@ class GoodPickup extends PxActorEntity
 		var a:Float;
 		var colors:Array<Int> = [ 0xFF5750, 0xCC2E29, 0xFFA9A6, 0xFFFFFF ];
 		
-		PxSoundManager.play(Assets.getSound("assets/heart.mp3"), transform.position);
+		PxSoundManager.play(Assets.getSound("assets/heart" + ExampleLauncher.Sound_Format), transform.position);
 		
 		// emit particles
 		for (i in 0...50) 
