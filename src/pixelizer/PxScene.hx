@@ -1,9 +1,9 @@
 package pixelizer;
 
-import pixelizer.components.collision.PxBoxColliderComponent;
 import pixelizer.IPxEntityContainer;
 import pixelizer.physics.PxCollisionManager;
 import pixelizer.render.PxCamera;
+import pixelizer.utils.PxMath;
 
 /**
  * The scene holds and manages all entities. Scenes are updated by the engine.
@@ -107,8 +107,27 @@ class PxScene implements IPxEntityContainer
 		
 		for (e in pEntity.entities) 
 		{
-			e.transform.globalPosition.x = pEntity.transform.globalPosition.x + e.transform.position.x;
-			e.transform.globalPosition.y = pEntity.transform.globalPosition.y + e.transform.position.y;
+			e.transform.rotationOnScene = pEntity.transform.rotationOnScene + e.transform.rotation;
+			
+			e.transform.scaleXOnScene = pEntity.transform.scaleXOnScene * e.transform.scaleX;
+			e.transform.scaleYOnScene = pEntity.transform.scaleYOnScene * e.transform.scaleY;
+			
+			e.transform.positionOnScene.x = pEntity.transform.positionOnScene.x;
+			e.transform.positionOnScene.y = pEntity.transform.positionOnScene.y;
+			
+			if (e.transform.rotationOnScene == 0) 
+			{
+				e.transform.positionOnScene.x += e.transform.position.x * pEntity.transform.scaleXOnScene;
+				e.transform.positionOnScene.y += e.transform.position.y * pEntity.transform.scaleXOnScene;
+			}
+			else 
+			{
+				// TODO: find faster versions of sqrt and atan2
+				var d:Float = Math.sqrt(e.transform.position.x * e.transform.position.x + e.transform.position.y * e.transform.position.y);
+				var a:Float = Math.atan2(e.transform.position.y, e.transform.position.x) + pEntity.transform.rotationOnScene;
+				e.transform.positionOnScene.x += d * PxMath.cos(a) * e.transform.scaleXOnScene;
+				e.transform.positionOnScene.y += d * PxMath.sin(a) * e.transform.scaleYOnScene;
+			}
 			
 			updateEntityTree(e, pDT);
 		}
@@ -193,6 +212,15 @@ class PxScene implements IPxEntityContainer
 	public function getEntitiesByHandle(pRootEntity:PxEntity, pHandle:String, pEntityVector:Array<PxEntity>):Void 
 	{
 		return _entityRoot.getEntitiesByHandle(pRootEntity, pHandle, pEntityVector);
+	}
+	
+	public function forEachEntity(pEntityRoot:PxEntity, pFunction:Dynamic):Void 
+	{
+		pFunction(pEntityRoot);
+		for (e in pEntityRoot.entities ) 
+		{
+			forEachEntity(e, pFunction);
+		}
 	}
 
 }

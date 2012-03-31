@@ -54,7 +54,6 @@ class PxBlitRenderer implements IPxRenderer
 		_surface.bitmapData.dispose();
 		_surface = null;
 		_view = null;
-	
 	}
 	
 	/**
@@ -84,11 +83,11 @@ class PxBlitRenderer implements IPxRenderer
 		{
 			_view.width = pScene.camera.view.width;
 			_view.height = pScene.camera.view.height;
-			renderRenderComponents(pScene.entityRoot, pScene, pScene.entityRoot.transform.position, pScene.entityRoot.transform.rotation);
+			renderRenderComponents(pScene.entityRoot, pScene, pScene.entityRoot.transform.position, pScene.entityRoot.transform.rotation, pScene.entityRoot.transform.scaleX, pScene.entityRoot.transform.scaleY);
 		}
 	}
 	
-	private function renderRenderComponents(pEntity:PxEntity, pScene:PxScene, pPosition:Point, pRotation:Float):Void 
+	private function renderRenderComponents(pEntity:PxEntity, pScene:PxScene, pPosition:Point, pRotation:Float, pScaleX:Float, pScaleY:Float):Void 
 	{
 		_view.x = pScene.camera.view.x * pEntity.transform.scrollFactorX;
 		_view.y = pScene.camera.view.y * pEntity.transform.scrollFactorY;
@@ -101,22 +100,22 @@ class PxBlitRenderer implements IPxRenderer
 				// TODO: find faster versions of sqrt and atan2
 				var d:Float = Math.sqrt(e.transform.position.x * e.transform.position.x + e.transform.position.y * e.transform.position.y);
 				var a:Float = Math.atan2(e.transform.position.y, e.transform.position.x) + pRotation;
-				pos.x = pPosition.x + d * PxMath.cos(a);
-				pos.y = pPosition.y + d * PxMath.sin(a);
+				pos.x = pPosition.x + d * PxMath.cos(a) * pScaleX;
+				pos.y = pPosition.y + d * PxMath.sin(a) * pScaleY;
 			} 
 			else 
 			{
-				pos.x = pPosition.x + e.transform.position.x;
-				pos.y = pPosition.y + e.transform.position.y;
+				pos.x = pPosition.x + e.transform.position.x * pScaleX;
+				pos.y = pPosition.y + e.transform.position.y * pScaleY;
 			}
 			
 			var brcs:Array<PxComponent> = e.getComponentsByClass(PxBlitRenderComponent);
 			for (brc in brcs) 
 			{
-				cast(brc, PxBlitRenderComponent).render(_view, _surface.bitmapData, pos, pRotation + e.transform.rotation, _renderStats);
+				cast(brc, PxBlitRenderComponent).render(_view, _surface.bitmapData, pos, pRotation + e.transform.rotation, pScaleX * e.transform.scaleX, pScaleY * e.transform.scaleY, _renderStats);
 			}
 			
-			renderRenderComponents(e, pScene, pos, pRotation + e.transform.rotation);
+			renderRenderComponents(e, pScene, pos, pRotation + e.transform.rotation, pScaleX * e.transform.scaleX, pScaleY * e.transform.scaleY);
 			Pixelizer.pointPool.recycle(pos);
 		}
 	}

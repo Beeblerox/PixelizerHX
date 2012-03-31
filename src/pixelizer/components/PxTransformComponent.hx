@@ -17,7 +17,7 @@ class PxTransformComponent extends PxComponent
 	/**
 	 * Position on the scene.
 	 */
-	public var globalPosition:Point;
+	public var positionOnScene:Point;
 	/**
 	 * Local position from last frame.
 	 */
@@ -26,6 +26,10 @@ class PxTransformComponent extends PxComponent
 	 * The entity's rotation in radians.
 	 */
 	public var rotation:Float;
+	/**
+	 * Rotation on the scene.
+	 */
+	public var rotationOnScene:Float;
 	/**
 	 * What offset from hotspot to rotate the around.
 	 */
@@ -39,6 +43,15 @@ class PxTransformComponent extends PxComponent
 	 */
 	public var scaleY:Float;
 	
+	/**
+	 * X scale on the scene.
+	 */
+	public var scaleXOnScene:Float;
+	/**
+	 * Y scale on the scene.
+	 */
+	public var scaleYOnScene:Float;
+	
 	public var scrollFactorX:Float;
 	public var scrollFactorY:Float;
 	
@@ -50,14 +63,17 @@ class PxTransformComponent extends PxComponent
 	public function new(?pX:Int = 0, ?pY:Int = 0) 
 	{
 		rotation = 0;
+		rotationOnScene = 0;
 		scaleX = 1;
 		scaleY = 1;
+		scaleXOnScene = 1;
+		scaleYOnScene = 1;
 		scrollFactorX = 1;
 		scrollFactorY = 1;
 		
 		super();
-		globalPosition = Pixelizer.pointPool.fetch();
-		globalPosition.x = globalPosition.y = 0;
+		positionOnScene = Pixelizer.pointPool.fetch();
+		positionOnScene.x = positionOnScene.y = 0;
 		
 		pivotOffset = Pixelizer.pointPool.fetch();
 		pivotOffset.x = pivotOffset.y = 0;
@@ -76,8 +92,8 @@ class PxTransformComponent extends PxComponent
 	 */
 	override public function dispose():Void 
 	{
-		Pixelizer.pointPool.recycle(globalPosition);
-		globalPosition = null;
+		Pixelizer.pointPool.recycle(positionOnScene);
+		positionOnScene = null;
 		
 		Pixelizer.pointPool.recycle(lastPosition);
 		lastPosition = null;

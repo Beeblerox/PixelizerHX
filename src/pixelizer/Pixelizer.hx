@@ -94,7 +94,6 @@ class Pixelizer
 		
 		PxInput.init(stage);
 		PxSoundManager.init();
-	
 	}
 	
 	/**

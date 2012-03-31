@@ -22,8 +22,9 @@ class PxBoxColliderComponent extends PxColliderComponent
 	{
 		super(pSolid);
 		collisionBox = new PxAABB(pWidth, pHeight, pWidth / 2, pHeight / 2);
-		collisionLayer = 2;
-		collisionLayerMask = 1 + 2;
+		addCollisionLayer(1); // i'm a box
+		addCollisionLayerMask(0); // grids 
+		addCollisionLayerMask(1); // other boxes
 	}
 	
 	/**
@@ -44,6 +45,8 @@ class PxBoxColliderComponent extends PxColliderComponent
 	{
 		collisionBox.halfWidth = pWidth / 2;
 		collisionBox.halfHeight = pHeight / 2;
+		collisionBox.offsetX = pWidth / 2;
+		collisionBox.offsetY = pHeight / 2;
 	}
 
 }

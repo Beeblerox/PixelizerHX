@@ -3,6 +3,7 @@ package examples.collision;
 import flash.display.BitmapData;
 import flash.geom.Rectangle;
 import pixelizer.components.collision.PxBoxColliderComponent;
+import pixelizer.components.PxBodyComponent;
 import pixelizer.components.render.PxAnimationComponent;
 import pixelizer.components.render.PxBlitRenderComponent;
 import pixelizer.physics.PxCollisionData;
@@ -31,6 +32,8 @@ class VisualCollisionEntity extends PxEntity
 		_animComp = cast(addComponent(new PxAnimationComponent(spriteSheet)), PxAnimationComponent);
 		_animComp.gotoAndStop(0);
 		
+		addComponent(new PxBodyComponent(0));
+		
 		var collider:PxBoxColliderComponent = new PxBoxColliderComponent(16, 16, pSolid);
 		collider.registerCallbacks(onCollisionStart, onCollisionOngoing, onCollisionEnd);
 		addComponent(collider);
@@ -41,13 +44,6 @@ class VisualCollisionEntity extends PxEntity
 		_animComp = null;
 		super.dispose();
 	}
-	
-	/*
-	   override public function update(pDT:Number):void {
-	
-	   super.update(pDT);
-	   }
-	 */
 	
 	private function onCollisionStart(pCollisionData:PxCollisionData):Void 
 	{

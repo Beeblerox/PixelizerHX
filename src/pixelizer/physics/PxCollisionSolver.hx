@@ -51,6 +51,12 @@ class PxCollisionSolver
 		var cx:Float;
 		var cy:Float;
 		
+		// modify box position to adapt to grid position
+		// will be set back to normal later
+		pBox.entity.transform.position.x -= pGrid.entity.transform.position.x;
+		pBox.entity.transform.position.y -= pGrid.entity.transform.position.y;
+		
+		// calc which tiles we might intersect with
 		tx1 = Math.floor((pBox.entity.transform.position.x - pBox.collisionBox.halfWidth + pBox.collisionBox.offsetX) / pGrid.cellSize);
 		ty1 = Math.floor((pBox.entity.transform.position.y - pBox.collisionBox.halfHeight + pBox.collisionBox.offsetY) / pGrid.cellSize);
 		tx2 = Math.floor((pBox.entity.transform.position.x + pBox.collisionBox.halfWidth + pBox.collisionBox.offsetX) / pGrid.cellSize);
@@ -141,6 +147,11 @@ class PxCollisionSolver
 			}
 		}
 		
+		// remove and adaptation to grid position
+		pBox.entity.transform.position.x += pGrid.entity.transform.position.x;
+		pBox.entity.transform.position.y += pGrid.entity.transform.position.y;
+		
+		// calc collision response
 		_pt.x = pBox.entity.transform.position.x - curPos.x;
 		_pt.y = pBox.entity.transform.position.y - curPos.y;
 		

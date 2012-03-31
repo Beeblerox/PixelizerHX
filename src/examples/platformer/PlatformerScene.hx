@@ -4,9 +4,12 @@ package examples.platformer;
 import examples.ExampleLauncher;
 import flash.geom.Point;
 import nme.Assets;
+import pixelizer.components.collision.PxBoxColliderComponent;
+import pixelizer.components.collision.PxBoxColliderRenderComponent;
 import pixelizer.components.render.PxTextFieldComponent;
 import pixelizer.Pixelizer;
 import pixelizer.prefabs.gui.PxTextFieldEntity;
+import pixelizer.PxEngine;
 import pixelizer.PxEntity;
 import pixelizer.PxInput;
 import pixelizer.PxScene;
@@ -111,6 +114,34 @@ class PlatformerScene extends PxScene
 		if (PxInput.isPressed(PxInput.KEY_ESC)) 
 		{
 			engine.popScene();
+		}
+		
+		if (PxInput.isPressed(PxInput.KEY_D)) 
+		{
+			forEachEntity(entityRoot, addColliderRenderer);
+		}
+		if (PxInput.isPressed(PxInput.KEY_E)) 
+		{
+			forEachEntity(entityRoot, removeColliderRenderer);
+		}
+	}
+	
+	private function addColliderRenderer(pEntity:PxEntity):Void 
+	{
+		if (pEntity.hasComponentByClass(PxBoxColliderComponent))  
+		{
+			if (!pEntity.hasComponentByClass(PxBoxColliderRenderComponent)) 
+			{
+				pEntity.addComponent(new PxBoxColliderRenderComponent());
+			}
+		}
+	}
+	
+	private function removeColliderRenderer(pEntity:PxEntity):Void 
+	{
+		if (pEntity.hasComponentByClass(PxBoxColliderRenderComponent))  
+		{
+			pEntity.removeComponent(new PxBoxColliderRenderComponent());
 		}
 	}
 	

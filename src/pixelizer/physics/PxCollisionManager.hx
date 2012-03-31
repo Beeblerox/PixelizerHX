@@ -196,7 +196,10 @@ class PxCollisionManager
 		if (resolveCollision) 
 		{
 			bodyComp = cast(a.entity.getComponentByClass(PxBodyComponent ), PxBodyComponent);
-			a.entity.transform.position.x = bodyComp.lastPosition.x;
+			if (bodyComp != null)
+			{
+				a.entity.transform.position.x = bodyComp.lastPosition.x;
+			}
 		}
 		
 		_overlap.x = _overlap.y = 0;
@@ -211,7 +214,10 @@ class PxCollisionManager
 			if (resolveCollision) 
 			{
 				a.entity.transform.position.y += overlap.y;
-				bodyComp.velocity.y = 0;
+				if (bodyComp != null)
+				{
+					bodyComp.velocity.y = 0;
+				}
 			}
 		}
 		
@@ -226,7 +232,10 @@ class PxCollisionManager
 			if (resolveCollision) 
 			{
 				a.entity.transform.position.x += overlap.x;
-				bodyComp.velocity.x = 0;
+				if (bodyComp != null)
+				{
+					bodyComp.velocity.x = 0;
+				}
 			}
 		}
 		

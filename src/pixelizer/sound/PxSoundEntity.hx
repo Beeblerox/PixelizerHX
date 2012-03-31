@@ -106,7 +106,7 @@ class PxSoundEntity extends PxEntity
 		{
 			if (_soundChannel != null) 
 			{
-				updateSoundTransform(transform.globalPosition);
+				updateSoundTransform(transform.positionOnScene);
 				_soundChannel.soundTransform = _soundTransform;
 			}
 		}

@@ -60,7 +60,6 @@ class PxEntity extends EventDispatcher, implements IPxEntityContainer
 		_entities = new Array<PxEntity>();
 		_entitiesToAdd = new Array<PxEntity>();
 		_entitiesToRemove = new Array<PxEntity>();
-		//_entitiesByHandle = new Dictionary();
 		
 		_onRemovedCallbacks = new Array<Dynamic>();
 		

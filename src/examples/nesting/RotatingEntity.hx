@@ -26,6 +26,7 @@ class RotatingEntity extends PxEntity
 		
 		_color = pColor;
 		_rotSpeed = pRotSpeed;
+		transform.scale = 0.95;
 		addComponent(new PxBlitRenderComponent(PxImageUtil.createRect(16, 8, _color), new Point(0, 4)));
 	}
 	

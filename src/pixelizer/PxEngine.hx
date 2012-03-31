@@ -8,6 +8,7 @@ import nme.geom.Point;
 import nme.Lib;
 import nme.system.System;
 import nme.utils.Timer;
+import pixelizer.components.collision.PxColliderComponent;
 import pixelizer.components.render.PxBlitRenderComponent;
 import pixelizer.components.render.PxTextFieldComponent;
 import pixelizer.prefabs.gui.PxTextFieldEntity;
@@ -74,7 +75,7 @@ class PxEngine extends Sprite
 	 * @param	pRendererClass	What renderer to use.
 	 * @param 	pShowLogo	Specifies whether to show Pixelizer logo at start or not.
 	 */
-	public function new(pWidth:Int, pHeight:Int, ?pScale:Int = 1, ?pFPS:Int = 30, ?pRendererClass:Class<IPxRenderer> = null, ?pShowLogo:Bool = true ) 
+	public function new(pWidth:Int, pHeight:Int, ?pScale:Int = 1, ?pFPS:Int = 30, ?pRendererClass:Class<IPxRenderer> = null, ?pShowLogo:Bool = true) 
 	{
 		_pauseOnFocusLost = true;
 		_logTexts = [];
@@ -149,7 +150,6 @@ class PxEngine extends Sprite
 		stage.focus = this;
 		stage.addEventListener(Event.ACTIVATE, onFocusIn);
 		stage.addEventListener(Event.DEACTIVATE, onFocusOut);
-	
 	}
 	
 	/**
@@ -173,7 +173,6 @@ class PxEngine extends Sprite
 		
 		stage.removeEventListener(FocusEvent.FOCUS_IN, onFocusIn);
 		stage.removeEventListener(FocusEvent.FOCUS_OUT, onFocusOut);
-	
 	}
 	
 	private function logListener(pMessage:String):Void 
@@ -338,8 +337,6 @@ class PxEngine extends Sprite
 			
 			// count fps
 			_frameCount++;
-			
-			// update stats
 			
 			// render
 			_renderer.beforeRendering();

@@ -133,7 +133,7 @@ class PxTileMapComponent extends PxBlitRenderComponent
 	 * @param	pOffset		Offset from top left corner.
 	 * @param	pRenderStats	Render stats to update.
 	 */
-	override public function render(pView:Rectangle, pBitmapData:BitmapData, pOffset:Point, pRotation:Float, pRenderStats:PxRenderStats ):Void 
+	override public function render(pView:Rectangle, pBitmapData:BitmapData, pOffset:Point, pRotation:Float, pScaleX:Float, pScaleY:Float, pRenderStats:PxRenderStats ):Void 
 	{
 		var tileSize:Int = _tileSheet.spriteWidth;
 		

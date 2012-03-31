@@ -17,7 +17,8 @@ import pixelizer.components.PxComponent;
 class PxColliderComponent extends PxComponent 
 {
 	/**
-	 * What layer(s) this component belongs to.
+	 * Returns bitmask for which collision layers this collider belongs to.
+	 * Use addCollisionLayer(...) and removeCollisionLayer(...) to modify.
 	 */
 	#if flash
 	public var collisionLayer:UInt;
@@ -25,7 +26,8 @@ class PxColliderComponent extends PxComponent
 	public var collisionLayer:Int;
 	#end
 	/**
-	 * What layer(s) this component collides with.
+	 * Returns bitmask for which collision layer masks this collider belongs to.
+	 * Use addCollisionLayerMask(...) and removeCollisionLayerMask(...) to modify.
 	 */
 	#if flash
 	public var collisionLayerMask:UInt;
@@ -178,6 +180,42 @@ class PxColliderComponent extends PxComponent
 		{
 			_onCollisionEndCallback(pCollisionData);
 		}
+	}
+	
+	/**
+	 * Adds a collision layer from the collider.
+	 * @param	pLayerBit	Which bit to remove. 
+	 */
+	public function addCollisionLayer(pLayerBit:Int):Void 
+	{
+		collisionLayer |= (1 << pLayerBit);
+	}
+	
+	/**
+	 * Removes a collision layer from the collider.
+	 * @param	pLayerBit	Which bit to remove. 
+	 */
+	public function removeCollisionLayer(pLayerBit:Int):Void 
+	{
+		collisionLayer &= (~(1 << pLayerBit));
+	}
+	
+	/**
+	 * Adds a collision layer mask to the collider.
+	 * @param	pLayerBit	Which bit to add. 
+	 */
+	public function addCollisionLayerMask(pLayerBit:Int):Void 
+	{
+		collisionLayerMask |= (1 << pLayerBit);
+	}
+	
+	/**
+	 * Removes a collision layer mask from the collider.
+	 * @param	pLayerBit	Which bit to remove. 
+	 */
+	public function removeCollisionLayerMask(pLayerBit:Int):Void 
+	{
+		collisionLayerMask &= (~(1 << pLayerBit));
 	}
 
 }

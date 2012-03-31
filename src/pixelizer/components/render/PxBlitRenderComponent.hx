@@ -13,7 +13,7 @@ import pixelizer.utils.PxRenderStats;
  * Allows for graphical output using the blit renderer.
  * Can be animated using animation components.
  */
-class PxBlitRenderComponent extends PxComponent 
+class PxBlitRenderComponent extends PxComponent
 {
 	
 	private var _bufferTopLeft_:Point;
@@ -61,7 +61,7 @@ class PxBlitRenderComponent extends PxComponent
 		renderOffset.x = renderOffset.y = 0;
 		
 		_matrix = Pixelizer.matrixPool.fetch();
-		_colorTransform = new ColorTransform(1, 1, 1, 1, 0, 0, 0, 0);
+		_colorTransform = new ColorTransform();
 		
 		bitmapData = pBitmapData;
 		
@@ -111,7 +111,7 @@ class PxBlitRenderComponent extends PxComponent
 	 * @param	pOffset	Offset from top left.
 	 * @param	pRenderStats	Render stats to update.
 	 */
-	public function render(pView:Rectangle, pBitmapData:BitmapData, pPosition:Point, pRotation:Float, pRenderStats:PxRenderStats):Void 
+	public function render(pView:Rectangle, pBitmapData:BitmapData, pPosition:Point, pRotation:Float, pScaleX:Float, pScaleY:Float, pRenderStats:PxRenderStats):Void 
 	{
 		if (!visible)
 		{
@@ -136,13 +136,13 @@ class PxBlitRenderComponent extends PxComponent
 						{
 							_bufferTopLeft_.x = _globalTopLeft_.x - pView.x;
 							_bufferTopLeft_.y = _globalTopLeft_.y - pView.y;
-							if (_alpha < 1 || pRotation != 0 || entity.transform.scaleX != 1 || entity.transform.scaleY != 1) 
+							if (_alpha < 1 || pRotation != 0 || pScaleX != 1 || pScaleY != 1) 
 							{
 								_matrix.identity();
 								_matrix.translate( -(hotspot.x + renderOffset.x), -(hotspot.y + renderOffset.y));
-								if (entity.transform.scaleX != 1 || entity.transform.scaleY != 1)
+								if (pScaleX != 1 || pScaleY != 1)
 								{
-									_matrix.scale(entity.transform.scaleX, entity.transform.scaleY);
+									_matrix.scale(pScaleX, pScaleY);
 								}
 								if (pRotation != 0) 
 								{
