@@ -2,6 +2,7 @@ package pixelizer.render;
 
 import nme.display.BitmapData;
 import pixelizer.render.PxBitmapFont;
+import pixelizer.utils.PxRepository;
 
 /**
  * Creates a default font. This is done automatically when intializing Pixelizer.
@@ -48,7 +49,7 @@ class PxDefaultFontGenerator
 			letterPos++;
 		}
 		
-		PxBitmapFont.store("default", new PxBitmapFont(bd, letters));
+		PxRepository.store("_pixelizer_font", new PxBitmapFont(bd, letters));
 		bd.dispose();
 	}
 }

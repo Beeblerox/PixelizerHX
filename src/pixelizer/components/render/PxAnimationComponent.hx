@@ -1,6 +1,7 @@
 package pixelizer.components.render;
 
 import nme.geom.Point;
+import nme.Lib;
 import pixelizer.components.PxComponent;
 import pixelizer.PxEntity;
 import pixelizer.render.PxAnimation;
@@ -16,6 +17,7 @@ class PxAnimationComponent extends PxComponent
 	private var _renderComponentRef:PxBlitRenderComponent;
 	private var _currentAnimation:PxAnimation;
 	private var _currentAnimationFrame:Int;
+	private var _currentSpriteSheetFrame:Int;
 	private var _animationPlaying:Bool;
 	private var _frameTimer:Float;
 	private var _frameDuration:Float;
@@ -23,6 +25,7 @@ class PxAnimationComponent extends PxComponent
 	private var _flipFlags:Int;
 	private var _lastFlipFlags:Int;
 	private var _currentAnimationLabel:String;
+	private var _renderComponentNeedsUpdate:Bool;
 	
 	/**
 	 * Creates a new component.
@@ -34,6 +37,7 @@ class PxAnimationComponent extends PxComponent
 		_frameDuration = 0.1;
 		_flipFlags = 0;
 		_lastFlipFlags = 0;
+		_renderComponentNeedsUpdate = false;
 		
 		super();
 		_spriteSheet = pSpriteSheet;
@@ -75,7 +79,8 @@ class PxAnimationComponent extends PxComponent
 	public function gotoAndStop(pFrame:Int):Void 
 	{
 		_animationPlaying = false;
-		updateRenderComponent(pFrame);
+		_currentSpriteSheetFrame = pFrame;
+		_renderComponentNeedsUpdate = true;
 	}
 	
 	/**
@@ -89,17 +94,21 @@ class PxAnimationComponent extends PxComponent
 		{
 			return;
 		}
-		_currentAnimationLabel = pLabel;
 		
-		_currentAnimation = _spriteSheet.getAnimation(_currentAnimationLabel);
-		_currentAnimationFrame = 0;
-		_animationPlaying = true;
-		_frameTimer = 0;
-		_frameDuration = 1 / _currentAnimation.fps;
+		_currentAnimation = _spriteSheet.getAnimation(pLabel);
+		if (_currentAnimation != null) 
+		{
+			_currentAnimationLabel = pLabel;
+			
+			_currentAnimationFrame = 0;
+			_animationPlaying = true;
+			_frameTimer = 0;
+			_frameDuration = 1 / _currentAnimation.fps;
+		}
 		
 		// show first frame
-		updateRenderComponent(_currentAnimation.frames[_currentAnimationFrame]);
-	
+		_currentSpriteSheetFrame = _currentAnimation.frames[_currentAnimationFrame];
+		_renderComponentNeedsUpdate = true;
 	}
 	
 	/**
@@ -135,8 +144,14 @@ class PxAnimationComponent extends PxComponent
 					}
 				}
 				
-				updateRenderComponent(_currentAnimation.frames[_currentAnimationFrame]);
+				_currentSpriteSheetFrame = _currentAnimation.frames[_currentAnimationFrame];
+				_renderComponentNeedsUpdate = true;
 			}
+		}
+		
+		if (_renderComponentNeedsUpdate) 
+		{
+			updateRenderComponent();
 		}
 		
 		_lastFlipFlags = _flipFlags;
@@ -150,7 +165,8 @@ class PxAnimationComponent extends PxComponent
 	public function set_spriteSheet(pSpriteSheet:PxSpriteSheet):PxSpriteSheet 
 	{
 		_spriteSheet = pSpriteSheet;
-		updateRenderComponent(0);
+		_currentSpriteSheetFrame = 0;
+		_renderComponentNeedsUpdate = true;
 		return pSpriteSheet;
 	}
 	
@@ -173,17 +189,26 @@ class PxAnimationComponent extends PxComponent
 	{
 		_lastFlipFlags = _flipFlags;
 		_flipFlags = pFlipFlags;
+		if (_lastFlipFlags != pFlipFlags) 
+		{
+			_renderComponentNeedsUpdate = true;
+		}
 		return pFlipFlags;
 	}
 	
-	private function updateRenderComponent(pFrame:Int):Void 
+	private function updateRenderComponent():Void 
 	{
 		if (_renderComponentRef != null) 
 		{
-			_renderComponentRef.bitmapData = _spriteSheet.getFrame(pFrame, _flipFlags);
-			var offset:Point = _spriteSheet.getFrameOffset(pFrame, _flipFlags);
-			_renderComponentRef.renderOffset.x = offset.x;
-			_renderComponentRef.renderOffset.y = offset.y;
+			_renderComponentRef.bitmapData = _spriteSheet.getFrame(_currentSpriteSheetFrame, _flipFlags);
+			if (_renderComponentRef != null) 
+			{
+				var offset:Point = _spriteSheet.getFrameOffset(_currentSpriteSheetFrame, _flipFlags);
+				_renderComponentRef.renderOffset.x = offset.x;
+				_renderComponentRef.renderOffset.y = offset.y;
+				
+				_renderComponentNeedsUpdate = false;
+			}
 		}
 	}
 	

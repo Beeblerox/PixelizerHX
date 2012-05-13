@@ -1,6 +1,5 @@
 package examples.transform;
 
-//import examples.assets.AssetFactory;
 import flash.display.Bitmap;
 import flash.display.BitmapData;
 import flash.geom.Point;

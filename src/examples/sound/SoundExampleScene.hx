@@ -1,6 +1,5 @@
 package examples.sound;
 
-//import examples.assets.AssetFactory;
 import examples.ExampleLauncher;
 import flash.geom.Point;
 import nme.Assets;

@@ -5,7 +5,6 @@ import nme.geom.ColorTransform;
 import nme.geom.Matrix;
 import nme.geom.Point;
 import nme.geom.Rectangle;
-//import nme.utils.Dictionary;
 import pixelizer.utils.PxLog;
 
 /**
@@ -14,8 +13,6 @@ import pixelizer.utils.PxLog;
  */
 class PxBitmapFont 
 {
-	private static var _storedFonts:Hash<PxBitmapFont> = new Hash<PxBitmapFont>();
-	
 	private static var ZERO_POINT:Point = new Point();
 	
 	private var _glyphs:Array<BitmapData>;
@@ -49,8 +46,6 @@ class PxBitmapFont
 		
 		if (pBitmapData != null) 
 		{
-			//var fontData:Dictionary = new Dictionary();
-			
 			// get glyphs from bitmap
 			var bgColor:Int = pBitmapData.getPixel(0, 0);
 			var letterID:Int = 0;
@@ -251,32 +246,6 @@ class PxBitmapFont
 	public function get_numLetters():Int 
 	{
 		return _glyphs.length;
-	}
-	
-	/**
-	 * Stores a font for global use using an identifier.
-	 * @param	pHandle	String identifer for the font.
-	 * @param	pFont	Font to store.
-	 */
-	public static function store(pHandle:String, pFont:PxBitmapFont):Void 
-	{
-		_storedFonts.set(pHandle, pFont);
-		PxLog.log("font '" + pHandle + "' stored, " + pFont.numLetters + " letters", "[o PxBitmapFont]", PxLog.INFO);
-	}
-	
-	/**
-	 * Retrieves a font previously stored.
-	 * @param	pHandle	Identifier of font to fetch.
-	 * @return	Stored font, or null if no font was found.
-	 */
-	public static function fetch(pHandle:String):PxBitmapFont 
-	{
-		var f:PxBitmapFont = _storedFonts.get(pHandle);
-		if (f == null) 
-		{
-			PxLog.log("no font found with handle '" + pHandle + "'", "[o PxBitmapFont]", PxLog.WARNING);
-		}
-		return f;
 	}
 
 }

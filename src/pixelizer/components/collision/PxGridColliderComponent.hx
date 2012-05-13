@@ -1,5 +1,6 @@
 package pixelizer.components.collision;
 
+import pixelizer.Pixelizer;
 import pixelizer.utils.PxGrid;
 
 /**
@@ -20,12 +21,12 @@ class PxGridColliderComponent extends PxColliderComponent
 	 * @param	pHeight	Number of cells along.
 	 * @param	pCellSize	Size of each cell.
 	 */
-	public function new(pWidth:Int, pHeight:Int, pCellSize:Int = 16) 
+	public function new(pWidth:Int, pHeight:Int, pCellSize:Int) 
 	{
 		super();
 		
-		addCollisionLayer(0); // grid
-		collisionLayerMask = 0; // doesn't collide with anything (but others may collide with grid)
+		// act as a grid (by default)
+		addToCollisionLayer(Pixelizer.COLLISION_LAYER_GRID);
 		
 		_cellSize = pCellSize;
 		_width = pWidth;

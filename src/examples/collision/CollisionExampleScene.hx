@@ -2,8 +2,11 @@ package examples.collision;
 
 import flash.display.Bitmap;
 import flash.display.BitmapData;
+import pixelizer.components.collision.PxBoxColliderComponent;
+import pixelizer.components.collision.PxBoxColliderRenderComponent;
 import pixelizer.components.collision.PxGridColliderComponent;
 import pixelizer.components.PxBodyComponent;
+import pixelizer.components.render.PxBlitRenderComponent;
 import pixelizer.components.render.PxTileMapComponent;
 import pixelizer.Pixelizer;
 import pixelizer.PxEntity;
@@ -47,7 +50,7 @@ class CollisionExampleScene extends PxScene
 		gc.setCell(5, 4, 1);
 		gc.setCell(3, 6, 1);
 		
-		var tiles:PxEntity = addEntity(new PxEntity(40, 40));
+		var tiles:PxEntity = addEntity(new PxEntity(200, 60));
 		tiles.addComponent(tc);
 		tiles.addComponent(gc);
 		
@@ -55,13 +58,20 @@ class CollisionExampleScene extends PxScene
 		_controllableEntity.transform.setPosition(160, 120);
 		
 		// some things to collide with
-		for (i in 0...40) 
+		for (i in 0...10) 
 		{
 			var e:VisualCollisionEntity = new VisualCollisionEntity(PxMath.randomBoolean());
 			e.transform.setPosition(PxMath.randomInt(40, 264), PxMath.randomInt(40, 184));
 			addEntity(e);
 		}
-	
+		
+		// big area to collide with
+		var entity:PxEntity = addEntity(new PxEntity(40, 100));
+		entity.addComponent(new PxBlitRenderComponent(PxImageUtil.createRect(20, 20)));
+		var bc:PxBoxColliderComponent = cast(entity.addComponent(new PxBoxColliderComponent(40, 40, false)), PxBoxColliderComponent);
+		bc.collisionBox.offsetX = 10;
+		bc.collisionBox.offsetY = 10;
+		entity.addComponent(new PxBoxColliderRenderComponent());
 	}
 	
 	override public function update(pDT:Float):Void 

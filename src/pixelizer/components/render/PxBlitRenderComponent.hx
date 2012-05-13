@@ -67,17 +67,18 @@ class PxBlitRenderComponent extends PxComponent
 		
 		hotspot = Pixelizer.pointPool.fetch();
 		hotspot.x = hotspot.y = 0;
+		
+		if (pBitmapData != null) 
+		{
+			hotspot.x = pBitmapData.width / 2;
+			hotspot.y = pBitmapData.height / 2;
+		}
 
 		if (pHotspot != null) 
 		{
 			hotspot.x = pHotspot.x;
 			hotspot.y = pHotspot.y;
 		} 
-		else if (pBitmapData != null) 
-		{
-			hotspot.x = pBitmapData.width / 2;
-			hotspot.y = pBitmapData.height / 2;
-		}
 	}
 	
 	/**
@@ -120,8 +121,8 @@ class PxBlitRenderComponent extends PxComponent
 		
 		pRenderStats.totalObjects++;
 		
-		_globalTopLeft_.x = pPosition.x - (hotspot.x + renderOffset.x);
-		_globalTopLeft_.y = pPosition.y - (hotspot.y + renderOffset.y);
+		_globalTopLeft_.x = Math.round(pPosition.x) - (hotspot.x + renderOffset.x);
+		_globalTopLeft_.y = Math.round(pPosition.y) - (hotspot.y + renderOffset.y);
 		
 		// draw self
 		if (bitmapData != null) 

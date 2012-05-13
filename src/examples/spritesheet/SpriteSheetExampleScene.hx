@@ -1,6 +1,5 @@
 package examples.spritesheet;
 
-//import examples.assets.AssetFactory;
 #if (flash || cpp)
 import format.swf.MovieClip;
 #end

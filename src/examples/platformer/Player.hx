@@ -1,6 +1,5 @@
 package examples.platformer;
 
-//import examples.assets.AssetFactory;
 import examples.ExampleLauncher;
 import nme.Assets;
 import pixelizer.components.collision.PxBoxColliderComponent;
@@ -16,6 +15,7 @@ import pixelizer.PxInput;
 import pixelizer.render.PxBlitRenderer;
 import pixelizer.render.PxSpriteSheet;
 import pixelizer.sound.PxSoundEntity;
+import pixelizer.utils.PxRepository;
 
 /**
  * ...
@@ -34,12 +34,14 @@ class Player extends PxActorEntity
 		super();
 		
 		// animComponent, to handle sprite sheet animations
-		animComp.spriteSheet = PxSpriteSheet.fetch("player");
+		animComp.spriteSheet = PxRepository.fetch("player");
 		animComp.gotoAndPlay("idle");
 		
-		// set up collider size
+		// set up collider
 		boxColliderComp.setSize(16, 16);
 		boxColliderComp.registerCallbacks(onCollisionStart, onCollisionOngoing, onCollisionEnd);
+		
+		reset();
 	}
 	
 	override public function dispose():Void 
@@ -115,11 +117,7 @@ class Player extends PxActorEntity
 				animComp.gotoAndPlay("idle");
 			}
 		} 
-		// collided with heart?
-		else if (Std.is(pCollisionData.otherCollider.entity, GoodPickup)) 
-		{
-			pCollisionData.otherCollider.entity.destroyIn(0);
-		} 
+		
 		// collided with skull?
 		else if (Std.is(pCollisionData.otherCollider.entity, BadPickup)) 
 		{
@@ -168,8 +166,9 @@ class Player extends PxActorEntity
 		bodyComp.velocity.x = bodyComp.velocity.y = 0;
 		animComp.gotoAndPlay("idle");
 		
-		boxColliderComp.collisionLayerMask = 1 + 2;
-		boxColliderComp.collisionLayer = 2;
+		// what to collide with
+		boxColliderComp.enableCollisionWithCollisionLayer(1); // pick ups
+		boxColliderComp.enableCollisionWithCollisionLayer(Pixelizer.COLLISION_LAYER_GRID); // grid
 	}
 
 }

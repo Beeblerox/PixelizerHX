@@ -53,7 +53,7 @@ class PxSoundEntity extends PxEntity
 		
 		if (_isGlobal) 
 		{
-			_soundTransform = new SoundTransform();
+			_soundTransform = new SoundTransform(PxSoundManager.globalVolume);
 		} 
 		else 
 		{
@@ -109,6 +109,11 @@ class PxSoundEntity extends PxEntity
 				updateSoundTransform(transform.positionOnScene);
 				_soundChannel.soundTransform = _soundTransform;
 			}
+		}
+		
+		if (_isGlobal)
+		{
+			setVolumeToGlobalVolume();
 		}
 		
 		super.update(pDT);
@@ -193,6 +198,16 @@ class PxSoundEntity extends PxEntity
 		else 
 		{
 			destroyIn(0);
+		}
+	}
+	
+	public function setVolumeToGlobalVolume():Void 
+	{
+		if (_soundChannel != null) 
+		{
+			_soundTransform.pan = 0;
+			_soundTransform.volume = PxSoundManager.globalVolume;
+			_soundChannel.soundTransform = _soundTransform;
 		}
 	}
 

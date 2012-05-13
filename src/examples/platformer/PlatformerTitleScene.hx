@@ -1,6 +1,5 @@
 package examples.platformer;
 
-//import examples.assets.AssetFactory;
 import nme.Assets;
 import pixelizer.components.render.PxTextFieldComponent;
 import pixelizer.Pixelizer;
@@ -10,6 +9,7 @@ import pixelizer.PxScene;
 import pixelizer.render.PxAnimation;
 import pixelizer.render.PxBlitRenderer;
 import pixelizer.render.PxSpriteSheet;
+import pixelizer.utils.PxRepository;
 
 class PlatformerTitleScene extends PxScene 
 {
@@ -18,20 +18,20 @@ class PlatformerTitleScene extends PxScene
 	{
 		super();
 		
-		if (PxSpriteSheet.fetch("tiles") == null) 
+		if (PxRepository.fetch("tiles") == null) 
 		{
-			PxSpriteSheet.store("tiles", new PxSpriteSheet()).addFramesFromBitmapData(Assets.getBitmapData("assets/tiles.png"), 16, 16);
-			PxSpriteSheet.store("player", new PxSpriteSheet()).addFramesFromBitmapData(Assets.getBitmapData("assets/player.png"), 16, 16, Pixelizer.H_FLIP);
-			PxSpriteSheet.store("pickups", new PxSpriteSheet()).addFramesFromBitmapData(Assets.getBitmapData("assets/pickups.png"), 16, 16, Pixelizer.H_FLIP);
+			PxRepository.store("tiles", new PxSpriteSheet()).addFramesFromBitmapData(Assets.getBitmapData("assets/tiles.png"), 16, 16);
+			PxRepository.store("player", new PxSpriteSheet()).addFramesFromBitmapData(Assets.getBitmapData("assets/player.png"), 16, 16, Pixelizer.H_FLIP);
+			PxRepository.store("pickups", new PxSpriteSheet()).addFramesFromBitmapData(Assets.getBitmapData("assets/pickups.png"), 16, 16, Pixelizer.H_FLIP);
 			
 			// set up animations
-			PxSpriteSheet.fetch("player").addAnimation(new PxAnimation("idle", [ 0 ]));
-			PxSpriteSheet.fetch("player").addAnimation(new PxAnimation("walk", [ 1, 0 ], 10, PxAnimation.ANIM_LOOP));
-			PxSpriteSheet.fetch("player").addAnimation(new PxAnimation("jump", [ 2 ]));
-			PxSpriteSheet.fetch("player").addAnimation(new PxAnimation("die", [ 3, 4 ], 5, PxAnimation.ANIM_LOOP));
+			PxRepository.fetch("player").addAnimation(new PxAnimation("idle", [ 0 ]));
+			PxRepository.fetch("player").addAnimation(new PxAnimation("walk", [ 1, 0 ], 10, PxAnimation.ANIM_LOOP));
+			PxRepository.fetch("player").addAnimation(new PxAnimation("jump", [ 2 ]));
+			PxRepository.fetch("player").addAnimation(new PxAnimation("die", [ 3, 4 ], 5, PxAnimation.ANIM_LOOP));
 			
-			PxSpriteSheet.fetch("pickups").addAnimation(new PxAnimation("good", [ 0, 0, 0, 0, 0, 1 ], 5, PxAnimation.ANIM_LOOP));
-			PxSpriteSheet.fetch("pickups").addAnimation(new PxAnimation("bad", [ 2, 2, 2, 2, 2, 2, 3 ], 5, PxAnimation.ANIM_LOOP));
+			PxRepository.fetch("pickups").addAnimation(new PxAnimation("good", [ 0, 0, 0, 0, 0, 1 ], 5, PxAnimation.ANIM_LOOP));
+			PxRepository.fetch("pickups").addAnimation(new PxAnimation("bad", [ 2, 2, 2, 2, 2, 2, 3 ], 5, PxAnimation.ANIM_LOOP));
 		}
 		
 		// background color of scene

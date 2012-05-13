@@ -4,6 +4,7 @@ import pixelizer.components.collision.PxGridColliderComponent;
 import pixelizer.components.render.PxTileMapComponent;
 import pixelizer.PxEntity;
 import pixelizer.render.PxSpriteSheet;
+import pixelizer.utils.PxRepository;
 
 /**
  * Shows tiled graphics and holds the collision for the tilemap
@@ -34,10 +35,10 @@ class TileMap extends PxEntity
 		}
 		
 		// add collision
-		_gridComponent = new PxGridColliderComponent(_width, _height);
+		_gridComponent = new PxGridColliderComponent(_width, _height, 16);
 		
 		// add tiled graphics
-		var tileMapComp:PxTileMapComponent = new PxTileMapComponent(_width, _height, PxSpriteSheet.fetch("tiles"));
+		var tileMapComp:PxTileMapComponent = new PxTileMapComponent(_width, _height, PxRepository.fetch("tiles"));
 		
 		for (node in levelXml.elements())
 		{

@@ -1,8 +1,10 @@
 package pixelizer.components.render;
 
 import nme.display.BitmapData;
+import nme.geom.Point;
 import pixelizer.Pixelizer;
 import pixelizer.render.PxBitmapFont;
+import pixelizer.utils.PxRepository;
 
 /**
  * Renders a text field.
@@ -17,6 +19,7 @@ class PxTextFieldComponent extends PxBlitRenderComponent
 	private var _outlineColor:Int;
 	private var _shadow:Bool;
 	private var _shadowColor:Int;
+	private var _shadowOffset:Point;
 	private var _background:Bool;
 	private var _backgroundColor:Int;
 	private var _alignment:Int;
@@ -46,7 +49,10 @@ class PxTextFieldComponent extends PxBlitRenderComponent
 		_multiLine = false;
 		
 		super();
-		_font = PxBitmapFont.fetch("default");
+		_font = PxRepository.fetch("_pixelizer_font");
+		_shadowOffset = Pixelizer.pointPool.fetch();
+		_shadowOffset.x = 1;
+		_shadowOffset.y = 1;
 	}
 	
 	/**
@@ -55,6 +61,8 @@ class PxTextFieldComponent extends PxBlitRenderComponent
 	override public function dispose():Void 
 	{
 		_font = null;
+		Pixelizer.pointPool.recycle(_shadowOffset);
+		_shadowOffset = null;
 		super.dispose();
 	}
 	
@@ -85,10 +93,8 @@ class PxTextFieldComponent extends PxBlitRenderComponent
 		
 		var calcFieldWidth:Int = _fieldWidth;
 		var rows:Array<String> = [];
-		var fontHeight:Int;
+		var fontHeight:Int = _font.getFontHeight();
 		var alignment:Int = _alignment;
-		
-		fontHeight = _font.getFontHeight();
 		
 		// cut text into pices
 		var lineComplete:Bool;
@@ -189,7 +195,7 @@ class PxTextFieldComponent extends PxBlitRenderComponent
 			}
 			if (_shadow) 
 			{
-				_font.render(bitmapData, t, _shadowColor, 1 + ox + _padding, 1 + oy + row * fontHeight + _padding);
+				_font.render(bitmapData, t, _shadowColor, Math.floor(_shadowOffset.x + ox + _padding), Math.floor(_shadowOffset.y + oy + row * fontHeight + _padding));
 			}
 			_font.render(bitmapData, t, _color, ox + _padding, oy + row * fontHeight + _padding);
 			row++;
@@ -382,6 +388,16 @@ class PxTextFieldComponent extends PxBlitRenderComponent
 		_font = pFont;
 		_pendingTextChange = true;
 		return pFont;
+	}
+	
+	public var shadowOffset(get_shadowOffset, null):Point;
+	/**
+	 * Returns the offset parameter for text shadows.
+	 * @return a point
+	 */
+	public function get_shadowOffset():Point 
+	{
+		return _shadowOffset;
 	}
 
 }

@@ -18,8 +18,6 @@ import pixelizer.utils.PxLog;
  */
 class PxSpriteSheet 
 {
-	private static var _storedSheets:Hash<PxSpriteSheet> = new Hash<PxSpriteSheet>();
-	
 	private var _frameOffsets:Array<Point>;
 	private var _framesDefault:Array<BitmapData>;
 	private var _framesHFlip:Array<BitmapData>;
@@ -104,7 +102,7 @@ class PxSpriteSheet
 	 * @return Number of frames added.
 	 */
 	#if (flash || cpp)
-	public function addFramesFromMovieClip(pMC:MovieClip, ?pQuality:StageQuality = null/*StageQuality.LOW*/):Int 
+	public function addFramesFromMovieClip(pMC:MovieClip, ?pQuality:StageQuality = null/*StageQuality.LOW*/, ?pFlipFlags:Int = 0):Int 
 	{
 		var currentQuality:StageQuality = Pixelizer.stage.quality;
 		if (pQuality == null)
@@ -128,7 +126,15 @@ class PxSpriteSheet
 			
 			bd.draw(pMC, matrix);
 			_framesDefault.push(bd);
-			_frameOffsets.push(new Point(Math.floor(-bounds.x), Math.floor(-bounds.y)));
+			_frameOffsets.push(new Point(Math.floor( -bounds.x), Math.floor( -bounds.y)));
+			
+			if ((pFlipFlags & Pixelizer.H_FLIP) != 0) 
+			{
+				var bdHFlip:BitmapData = new BitmapData(bd.width, bd.height, true, 0x0);
+				matrix = new Matrix(-1, 0, 0, 1, bd.width, 0);
+				bdHFlip.draw(bd, matrix);
+				_framesHFlip.push(bdHFlip);
+			}
 		}
 		
 		// revert quality settings
@@ -243,29 +249,4 @@ class PxSpriteSheet
 		return _framesDefault[pFrameID];
 	}
 	
-	/**
-	 * Stores a sprite sheet for global use.
-	 * @param	pHandle	Identifier for the sprite sheet.
-	 * @param	pSheet	The sprite sheet to store.
-	 * @return	Stored sheet.
-	 */
-	public static function store(pHandle:String, pSheet:PxSpriteSheet):PxSpriteSheet 
-	{
-		_storedSheets.set(pHandle, pSheet);
-		return pSheet;
-	}
-	
-	/**
-	 * Retrieves a sprite sheet previously stored.
-	 * @param	pHandle	Identifier of sprite sheet to fetch.
-	 * @return	Stored sprite sheet, or null if no sprite sheet was found.
-	 */
-	public static function fetch(pHandle:String):PxSpriteSheet 
-	{
-		if (_storedSheets.exists(pHandle) == false) 
-		{
-			PxLog.log("no sprite sheet found with handle '" + pHandle + "'", "[o PXSpriteSheet]", PxLog.WARNING);
-		}
-		return _storedSheets.get(pHandle);
-	}
 }

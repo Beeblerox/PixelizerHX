@@ -1,14 +1,5 @@
 package examples.benchmark;
 
-//import examples.assets.AssetFactory;
-//import examples.collision.CollisionExampleScene;
-//import examples.emitter.EmittersExampleScene;
-//import examples.input.InputExampleScene;
-//import examples.platformer.PlatformerTitleScene;
-//import examples.sound.SoundExampleScene;
-//import examples.text.TextExampleScene;
-//import examples.transform.TransformExampleScene;
-
 import nme.display.BitmapData;
 import nme.Assets;
 
@@ -39,7 +30,7 @@ class BenchmarkExampleScene extends PxScene
 		backgroundColor = Pixelizer.COLOR_WHITE;
 		
 		// image to use
-		var bd:BitmapData = Assets.getBitmapData("assets/pickups.png"); // AssetFactory.pickups;
+		var bd:BitmapData = Assets.getBitmapData("assets/pickups.png");
 		
 		// position examples
 		var e:PxEntity;

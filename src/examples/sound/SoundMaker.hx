@@ -1,6 +1,5 @@
 package examples.sound;
 
-//import examples.assets.AssetFactory;
 import examples.ExampleLauncher;
 import nme.Assets;
 import pixelizer.components.render.PxBlitRenderComponent;

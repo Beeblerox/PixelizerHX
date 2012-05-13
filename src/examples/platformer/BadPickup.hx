@@ -1,6 +1,5 @@
 package examples.platformer;
 
-//import examples.assets.;
 import examples.ExampleLauncher;
 import nme.Assets;
 import pixelizer.components.collision.PxBoxColliderComponent;
@@ -12,6 +11,7 @@ import pixelizer.prefabs.PxActorEntity;
 import pixelizer.PxEntity;
 import pixelizer.render.PxSpriteSheet;
 import pixelizer.sound.PxSoundManager;
+import pixelizer.utils.PxRepository;
 
 /**
  * ...
@@ -25,14 +25,14 @@ class BadPickup extends PxActorEntity
 		super();
 		
 		// anim comp, to handle animations
-		animComp.spriteSheet = PxSpriteSheet.fetch("pickups");
+		animComp.spriteSheet = PxRepository.fetch("pickups");
 		animComp.gotoAndPlay("bad");
 		
 		bodyComp.mass = 0;
 		
 		boxColliderComp.setSize(16, 16);
-		boxColliderComp.solid = false;
-		boxColliderComp.collisionLayerMask = 0;
+		boxColliderComp.solid = true;
+		boxColliderComp.addToCollisionLayer(1); // pickups
 		boxColliderComp.registerCallbacks(onCollisionStart);
 	
 	}

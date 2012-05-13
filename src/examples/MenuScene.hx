@@ -1,6 +1,6 @@
 package examples;
 
-import examples.spritesheet.SpriteSheetExampleScene;
+//import examples.spritesheet.SpriteSheetExampleScene;
 import examples.nesting.NestingExampleScene;
 import examples.input.InputExampleScene;
 import examples.gui.GUIExampleScene;
@@ -11,6 +11,7 @@ import examples.benchmark.BenchmarkExampleScene;
 import examples.text.TextExampleScene;
 import examples.sound.SoundExampleScene;
 import examples.platformer.PlatformerTitleScene;
+import examples.replay.ReplayExampleScene;
 
 import pixelizer.Pixelizer;
 import pixelizer.prefabs.gui.PxGUIButton;
@@ -19,7 +20,7 @@ import pixelizer.prefabs.gui.PxTextFieldEntity;
 import pixelizer.PxEntity;
 import pixelizer.PxInput;
 import pixelizer.PxScene;
-import pixelizer.sound.PxSoundManager;
+//import pixelizer.sound.PxSoundManager;
 
 class MenuScene extends PxScene 
 {
@@ -43,10 +44,11 @@ class MenuScene extends PxScene
 		_examples.push({lbl: "Text Fields", cls: TextExampleScene});
 		_examples.push({lbl: "Input", cls: InputExampleScene});
 		_examples.push({lbl: "GUI", cls: GUIExampleScene});
-		_examples.push({lbl: "Sprite Sheets", cls: SpriteSheetExampleScene});
+	//	_examples.push({lbl: "Sprite Sheets", cls: SpriteSheetExampleScene});
 		_examples.push({lbl: "Playing Sounds", cls: SoundExampleScene});
 		_examples.push({lbl: "Collisions", cls: CollisionExampleScene});
 		_examples.push({lbl: "Emitters", cls: EmittersExampleScene});
+		_examples.push({lbl: "Replays", cls: ReplayExampleScene});
 		_examples.push({lbl: "Platform Game", cls: PlatformerTitleScene});
 		_examples.push({lbl: "Benchmark", cls: BenchmarkExampleScene});
 		
@@ -72,7 +74,7 @@ class MenuScene extends PxScene
 			}
 		}
 		
-		_clock = cast(addEntity(new PxTextFieldEntity("", Pixelizer.COLOR_GRAY)), PxTextFieldEntity);
+		_clock = cast(addEntity(new PxTextFieldEntity("", Pixelizer.COLOR_LIGHT_GRAY)), PxTextFieldEntity);
 		_clock.transform.setPosition(10, 220);
 	}
 	

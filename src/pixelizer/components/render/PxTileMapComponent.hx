@@ -15,7 +15,6 @@ import pixelizer.utils.PxRenderStats;
 class PxTileMapComponent extends PxBlitRenderComponent 
 {
 	private var _grid:PxGrid;
-	private var _tileSize:Int;
 	
 	private var _numTiles:Int;
 	
@@ -30,7 +29,6 @@ class PxTileMapComponent extends PxBlitRenderComponent
 	 */
 	public function new(pWidth:Int, pHeight:Int, pSpriteSheet:PxSpriteSheet) 
 	{
-		_tileSize = 16;
 		_numTiles = 0;
 		super();
 		
@@ -87,18 +85,6 @@ class PxTileMapComponent extends PxBlitRenderComponent
 	}
 	
 	/**
-	 * Returns the size of tiles.
-	 * @return Size of tiles.
-	 */
-	
-	public var tileSize(get_tileSize, null):Int;
-	
-	public function get_tileSize():Int 
-	{
-		return _tileSize;
-	}
-	
-	/**
 	 * Returns number of tiles in the map.
 	 * @return Amount of tiles in map.
 	 */
@@ -135,6 +121,11 @@ class PxTileMapComponent extends PxBlitRenderComponent
 	 */
 	override public function render(pView:Rectangle, pBitmapData:BitmapData, pOffset:Point, pRotation:Float, pScaleX:Float, pScaleY:Float, pRenderStats:PxRenderStats ):Void 
 	{
+		if (!visible)
+		{
+			return;
+		}
+		
 		var tileSize:Int = _tileSheet.spriteWidth;
 		
 		var objsRendered:Int = 0;

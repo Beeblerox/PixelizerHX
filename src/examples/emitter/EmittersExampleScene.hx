@@ -30,7 +30,7 @@ class EmittersExampleScene extends PxScene
 		emitterComp.setEmitAngleRange(-PxMath.PI * 3 / 4, -PxMath.PI * 1 / 4);
 		
 		emitter = new PxEntity();
-		emitter.addComponent(new PxBlitRenderComponent(PxImageUtil.createCircle(8, Pixelizer.COLOR_GRAY)));
+		emitter.addComponent(new PxBlitRenderComponent(PxImageUtil.createCircle(8, Pixelizer.COLOR_LIGHT_GRAY)));
 		emitter.addComponent(emitterComp);
 		emitter.transform.setPosition(80, 120);
 		addEntity(emitter);
@@ -44,7 +44,7 @@ class EmittersExampleScene extends PxScene
 		emitterComp.setEmitAngleRange(0, PxMath.TWO_PI);
 		
 		emitter = new PxEntity();
-		emitter.addComponent(new PxBlitRenderComponent(PxImageUtil.createCircle(8, Pixelizer.COLOR_GRAY)));
+		emitter.addComponent(new PxBlitRenderComponent(PxImageUtil.createCircle(8, Pixelizer.COLOR_LIGHT_GRAY)));
 		emitter.addComponent(emitterComp);
 		emitter.transform.setPosition(240, 120);
 		addEntity(emitter);

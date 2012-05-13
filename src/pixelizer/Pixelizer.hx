@@ -20,22 +20,27 @@ import pixelizer.utils.PxObjectPool;
 class Pixelizer 
 {
 	public static inline var MAJOR_VERSION:Int = 0;
-	public static inline var MINOR_VERSION:Int = 3;
-	public static inline var INTERNAL_VERSION:Int = 0;
+	public static inline var MINOR_VERSION:Int = 4;
+	public static inline var INTERNAL_VERSION:Int = 3;
 	
 	public static inline var COLOR_RED:Int = 0xFF5D5D;
 	public static inline var COLOR_GREEN:Int = 0x5DFC5D;
 	public static inline var COLOR_BLUE:Int = 0x5CBCFC;
 	public static inline var COLOR_WHITE:Int = 0xFFFFFF;
 	public static inline var COLOR_BLACK:Int = 0x000000;
-	public static inline var COLOR_GRAY:Int = 0xE6E6E6;
+	public static inline var COLOR_LIGHT_GRAY:Int = 0xE6E6E6;
+	public static inline var COLOR_GRAY:Int = 0xAAAAAA;
+	public static inline var COLOR_DARK_GRAY:Int = 0x808080;
 	
 	public static inline var LEFT:Int = 1;
 	public static inline var RIGHT:Int = 2;
 	public static inline var CENTER:Int = 3;
 	
+	static public inline var NO_FLIP:Int = 0;
 	static public inline var H_FLIP:Int = 1;
 	static public inline var V_FLIP:Int = 2;
+	
+	static public inline var COLLISION_LAYER_GRID:Int = 0;
 	
 	/**
 	 * Object pool for points.

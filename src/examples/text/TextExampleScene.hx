@@ -1,6 +1,5 @@
 package examples.text;
 
-//import examples.assets.AssetFactory;
 import flash.display.BitmapData;
 import nme.Assets;
 import pixelizer.components.render.PxTextFieldComponent;
@@ -44,7 +43,7 @@ class TextExampleScene extends PxScene
 		addTextEntity(textEntity);
 		
 		// shadowed text
-		textEntity = new PxTextFieldEntity("and have a dramatic shadow.", Pixelizer.COLOR_GRAY);
+		textEntity = new PxTextFieldEntity("and have a dramatic shadow.", Pixelizer.COLOR_LIGHT_GRAY);
 		textEntity.textField.shadow = true;
 		textEntity.textField.shadowColor = Pixelizer.COLOR_BLUE;
 		addTextEntity(textEntity);
@@ -85,9 +84,9 @@ class TextExampleScene extends PxScene
 		
 		var rfBitmapData:BitmapData = Assets.getBitmapData("assets/round_font.png");
 		var letters:String = " !\"#$%&'()*+,-./" + "0123456789:;<=>?" + "@ABCDEFGHIJKLMNO" + "PQRSTUVWXYZ[}]^_" + "'abcdefghijklmno" + "pqrstuvwxyz{|}~\\";
-		var rfFont:PxBitmapFont = new PxBitmapFont(rfBitmapData, letters);
+		var font:PxBitmapFont = new PxBitmapFont(rfBitmapData, letters);
 		
-		textEntity.textField.font = rfFont;
+		textEntity.textField.font = font;
 		textEntity.textField.shadow = true;
 		textEntity.textField.shadowColor = Pixelizer.COLOR_RED;
 		addTextEntity(textEntity);

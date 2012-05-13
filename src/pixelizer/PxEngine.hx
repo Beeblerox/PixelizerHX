@@ -243,7 +243,7 @@ class PxEngine extends Sprite
 		
 		_noFocusEntity = new PxEntity();
 		_noFocusEntity.transform.scale = 2;
-		var blocker:PxBlitRenderComponent = new PxBlitRenderComponent(PxImageUtil.createRect(Math.floor(_width / 2), Math.floor(_height / 2), Pixelizer.COLOR_GRAY), new Point());
+		var blocker:PxBlitRenderComponent = new PxBlitRenderComponent(PxImageUtil.createRect(Math.floor(_width / 2), Math.floor(_height / 2), Pixelizer.COLOR_LIGHT_GRAY), new Point());
 		blocker.alpha = 0.5;
 		_noFocusEntity.addComponent(blocker);
 		var message:PxTextFieldComponent = new PxTextFieldComponent();
@@ -457,14 +457,14 @@ class PxEngine extends Sprite
 			PxLog.log("turning performance view ON", "[o Pixelizer]", PxLog.DEBUG);
 			_performaceView = new PxTextFieldEntity("", Pixelizer.COLOR_BLACK);
 			_performaceView.textField.background = true;
-			_performaceView.textField.backgroundColor = Pixelizer.COLOR_GRAY;
+			_performaceView.textField.backgroundColor = Pixelizer.COLOR_LIGHT_GRAY;
 			_performaceView.textField.padding = 2;
 			_performaceView.textField.alpha = 0.8;
 			_internalScene.entityRoot.addEntity(_performaceView);
 			
 			_logView = new PxTextFieldEntity("", Pixelizer.COLOR_BLACK);
 			_logView.textField.background = true;
-			_logView.textField.backgroundColor = Pixelizer.COLOR_GRAY;
+			_logView.textField.backgroundColor = Pixelizer.COLOR_LIGHT_GRAY;
 			_logView.textField.padding = 2;
 			_logView.textField.alpha = 0.8;
 			_logView.textField.width = _width;

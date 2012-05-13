@@ -1,6 +1,5 @@
 package examples.platformer;
 
-//import examples.assets.AssetFactory;
 import examples.ExampleLauncher;
 import nme.geom.Point;
 import nme.Assets;
@@ -14,6 +13,7 @@ import pixelizer.PxEntity;
 import pixelizer.render.PxSpriteSheet;
 import pixelizer.sound.PxSoundManager;
 import pixelizer.utils.PxMath;
+import pixelizer.utils.PxRepository;
 
 /**
  * ...
@@ -26,7 +26,7 @@ class GoodPickup extends PxActorEntity
 	{
 		super();
 		
-		animComp.spriteSheet = PxSpriteSheet.fetch("pickups");
+		animComp.spriteSheet = PxRepository.fetch("pickups");
 		animComp.gotoAndPlay("good");
 		
 		// the body handles velocities 
@@ -34,7 +34,7 @@ class GoodPickup extends PxActorEntity
 		
 		boxColliderComp.setSize(16, 16);
 		boxColliderComp.solid = false;
-		boxColliderComp.collisionLayerMask = 0;
+		boxColliderComp.addToCollisionLayer(1);// pick ups
 		boxColliderComp.registerCallbacks(onCollisionStart);
 	}
 	
@@ -95,6 +95,8 @@ class GoodPickup extends PxActorEntity
 			f = 10000 / (dist * dist);
 			cast(g, GoodPickup).addVelocity(-f * PxMath.cos(a), -f * Math.sin(a));
 		}
+		
+		destroyIn(0);
 	}
 	
 	public function addVelocity(pVX:Float, pVY:Float):Void 

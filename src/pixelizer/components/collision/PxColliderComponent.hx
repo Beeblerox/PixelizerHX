@@ -183,37 +183,37 @@ class PxColliderComponent extends PxComponent
 	}
 	
 	/**
-	 * Adds a collision layer from the collider.
-	 * @param	pLayerBit	Which bit to remove. 
+	 * Adds collider to a collision layer.
+	 * @param  pLayerID   Which layer to add collider to.
 	 */
-	public function addCollisionLayer(pLayerBit:Int):Void 
+	public function addToCollisionLayer(pLayerBit:Int):Void 
 	{
 		collisionLayer |= (1 << pLayerBit);
 	}
 	
 	/**
-	 * Removes a collision layer from the collider.
-	 * @param	pLayerBit	Which bit to remove. 
+	 * Removes a collider from a collision layer.
+	 * @param  pLayerID  Which layer to remove from. 
 	 */
-	public function removeCollisionLayer(pLayerBit:Int):Void 
+	public function removeFromCollisionLayer(pLayerBit:Int):Void 
 	{
 		collisionLayer &= (~(1 << pLayerBit));
 	}
 	
 	/**
-	 * Adds a collision layer mask to the collider.
-	 * @param	pLayerBit	Which bit to add. 
+	 * Adds a collision layer to collide with.
+	 * @param  pLayerID   Which layer to add.
 	 */
-	public function addCollisionLayerMask(pLayerBit:Int):Void 
+	public function enableCollisionWithCollisionLayer(pLayerBit:Int):Void 
 	{
 		collisionLayerMask |= (1 << pLayerBit);
 	}
 	
 	/**
-	 * Removes a collision layer mask from the collider.
-	 * @param	pLayerBit	Which bit to remove. 
+	 * Removes a collision layer to no longer collide with.
+	 * @param  pLayerID  Which layer to remove. 
 	 */
-	public function removeCollisionLayerMask(pLayerBit:Int):Void 
+	public function disableCollisionWithCollisionLayer(pLayerBit:Int):Void 
 	{
 		collisionLayerMask &= (~(1 << pLayerBit));
 	}
